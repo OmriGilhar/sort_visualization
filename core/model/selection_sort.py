@@ -4,24 +4,25 @@ from core.model.sort_inter import SortInterface
 from core.view.realtime_sort_view import RealtimeSortView
 
 
-class BubbleSort(SortInterface):
+class SelectionSort(SortInterface):
     def __init__(self):
-        self.name = "Bubble Sort"
+        self.name = "Selection Sort"
         self.complexity = "Ο(n^2)"
         self.iter_num = 0
+        self.min_j = None
         self.index = 0
 
     def sort(self, list_to_sort: list, sort_view: RealtimeSortView):
-        while not self.check_if_sorted(list_to_sort):
-            self.iter_num += 1
-
-            if list_to_sort[self.index] > list_to_sort[self.index + 1]:
-                self.swap_elements(list_to_sort, self.index, self.index + 1)
-            self.update_view(sort_view, list_to_sort, self.index)
-
-            self.index += 1
-            if self.index == len(list_to_sort) - 1:
-                self.index = 0
+        for i in range(len(list_to_sort)):
+            self.min_j = i
+            for j in range(i+1, len(list_to_sort)):
+                self.iter_num += 1
+                self.update_view(sort_view, list_to_sort, i, j)
+                if list_to_sort[j] < list_to_sort[self.min_j]:
+                    self.min_j = j
+            if self.min_j != i:
+                self.swap_elements(list_to_sort, i, self.min_j)
+                self.update_view(sort_view, list_to_sort, i, self.min_j)
 
     @staticmethod
     def check_if_sorted(list_to_sort: list) -> bool:
@@ -37,8 +38,8 @@ class BubbleSort(SortInterface):
         return list_to_sort
 
     def update_view(self, sort_view: RealtimeSortView,
-                    list_to_sort: list, current_index: int):
+                    list_to_sort: list, current_index: int, check_index=None):
         x_axis = list(range(1, len(list_to_sort) + 1))
         sort_view.update_new_graph(x_axis, list_to_sort, current_index,
-                                   current_index+1, self.name,
-                                   self.complexity, self.iter_num )
+                                   check_index, self.name, self.complexity,
+                                   self.iter_num)

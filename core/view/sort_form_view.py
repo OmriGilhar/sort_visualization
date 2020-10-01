@@ -65,7 +65,7 @@ class SortForm:
             ),
 
             command=lambda: self.controller.check_valid_form(
-                SortEnum.BUBBLE,
+                sort_type,
                 int(self.num_of_elements_text.get()),
                 int(self.start_text.get()),
                 int(self.end_text.get())

@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from core.model.bubble_sort import BubbleSort
+from core.model.selection_sort import SelectionSort
 from core.utils.list_prepration import create_list
 from core.view.realtime_sort_view import RealtimeSortView
 from core.view.sort_choose_view import SortChooseView
@@ -73,3 +74,10 @@ class SortController:
             self.current_view = RealtimeSortView(self.root)
 
             b_sort.sort(bubble_sort_list, self.current_view)
+
+        if sort_type == SortEnum.SELECTION:
+            selection_sort = SelectionSort()
+            selection_sort_list = orig_randomized_list.copy()
+            self.current_view = RealtimeSortView(self.root)
+
+            selection_sort.sort(selection_sort_list, self.current_view)
