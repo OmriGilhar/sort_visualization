@@ -1,5 +1,3 @@
-import time
-
 from core.model.sort_inter import SortInterface
 from core.view.realtime_sort_view import RealtimeSortView
 
@@ -7,7 +5,7 @@ from core.view.realtime_sort_view import RealtimeSortView
 class BubbleSort(SortInterface):
     def __init__(self):
         self.name = "Bubble Sort"
-        self.complexity = "Ο(n^2)"
+        self.complexity = "Ο(n^2), Best: Ο(n)"
         self.iter_num = 0
         self.index = 0
 
@@ -41,4 +39,4 @@ class BubbleSort(SortInterface):
         x_axis = list(range(1, len(list_to_sort) + 1))
         sort_view.update_new_graph(x_axis, list_to_sort, current_index,
                                    current_index+1, self.name,
-                                   self.complexity, self.iter_num )
+                                   self.complexity, self.iter_num)

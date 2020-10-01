@@ -2,27 +2,23 @@ from core.model.sort_inter import SortInterface
 from core.view.realtime_sort_view import RealtimeSortView
 
 
-class SelectionSort(SortInterface):
+class InsertionSort(SortInterface):
     def __init__(self):
-        self.name = "Selection Sort"
-        self.complexity = "Ο(n^2), Best: Ο(n^2)"
+        self.name = "Insertion Sort"
+        self.complexity = "Ο(n^2), Best: Ο(n)"
         self.iter_num = 0
-        self.min_j = None
-        self.index = 0
-
-
 
     def sort(self, list_to_sort: list, sort_view: RealtimeSortView):
-        for i in range(len(list_to_sort)):
-            self.min_j = i
-            for j in range(i+1, len(list_to_sort)):
+        for i in range(1, len(list_to_sort)):
+            key = list_to_sort[i]
+
+            j = i - 1
+            while j >= 0 and key < list_to_sort[j]:
                 self.iter_num += 1
+                list_to_sort[j + 1] = list_to_sort[j]
                 self.update_view(sort_view, list_to_sort, i, j)
-                if list_to_sort[j] < list_to_sort[self.min_j]:
-                    self.min_j = j
-            if self.min_j != i:
-                self.swap_elements(list_to_sort, i, self.min_j)
-                self.update_view(sort_view, list_to_sort, i, self.min_j)
+                j -= 1
+            list_to_sort[j + 1] = key
 
     @staticmethod
     def check_if_sorted(list_to_sort: list) -> bool:

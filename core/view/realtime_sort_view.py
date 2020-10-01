@@ -8,18 +8,35 @@ matplotlib.use("TkAgg")
 
 
 class RealtimeSortView:
-    def __init__(self, root):
+    def __init__(self, root, controller):
         # Main frame
         self.pad = int(root.winfo_screenheight() / 30)
         self.main_frame = tk.Frame(root, width=root.winfo_screenwidth(),
                                    height=root.winfo_screenheight(),
                                    bg="black", relief=tk.SUNKEN, padx=25,
                                    pady=25)
+        self.controller = controller
+
+        self.back_button = tk.Button(
+            self.main_frame,
+            text="Back",
+            bg='gray25',
+            fg='white',
+            font=(
+                "Helvetica",
+                30
+            ),
+            state="normal",
+
+            command=lambda: self.controller.show_sort_options()
+        )
+
         self.f = None
         self.ax = None
         self.bar_plot = None
         self.canvas = None
         self.width = 0
+        self.back_button.pack()
         self.main_frame.pack()
 
     def destroy_view(self):
@@ -56,7 +73,4 @@ class RealtimeSortView:
             if follow_index:
                 self.bar_plot[current_index].set_color('r')
                 self.bar_plot[follow_index].set_color('r')
-            else:
-                self.bar_plot[current_index].set_color('r')
-                self.bar_plot[current_index + 1].set_color('r')
             self.canvas.draw()

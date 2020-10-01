@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from core.model.bubble_sort import BubbleSort
+from core.model.insertion_sort import InsertionSort
 from core.model.selection_sort import SelectionSort
 from core.utils.list_prepration import create_list
 from core.view.realtime_sort_view import RealtimeSortView
@@ -54,6 +55,10 @@ class SortController:
         self.full_screen_state = False
         self.root.attributes("-fullscreen", False)
 
+    def show_sort_options(self):
+        self.current_view.destroy_view()
+        self.current_view = SortChooseView(self.root, self)
+
     def show_form(self, sort_type: SortEnum):
         self.current_view.destroy_view()
         self.current_view = SortForm(self.root, self, sort_type)
@@ -68,16 +73,21 @@ class SortController:
     def run_sort(self, sort_type: SortEnum, num_of_element: int,
                  start: int, stop: int):
         orig_randomized_list = create_list(num_of_element, start, stop)
+        self.current_view = RealtimeSortView(self.root, self)
+
         if sort_type == SortEnum.BUBBLE:
             b_sort = BubbleSort()
             bubble_sort_list = orig_randomized_list.copy()
-            self.current_view = RealtimeSortView(self.root)
-
             b_sort.sort(bubble_sort_list, self.current_view)
 
-        if sort_type == SortEnum.SELECTION:
+        elif sort_type == SortEnum.SELECTION:
             selection_sort = SelectionSort()
             selection_sort_list = orig_randomized_list.copy()
-            self.current_view = RealtimeSortView(self.root)
-
             selection_sort.sort(selection_sort_list, self.current_view)
+
+        elif sort_type == SortEnum.INSERTION:
+            insertion_sort = InsertionSort()
+            insertion_sort_list = orig_randomized_list.copy()
+            insertion_sort.sort(insertion_sort_list, self.current_view)
+
+        self.current_view.back_button.config(state="normal")

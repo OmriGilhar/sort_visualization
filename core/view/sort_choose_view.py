@@ -48,9 +48,23 @@ class SortChooseView:
             command=lambda: self.controller.show_form(SortEnum.SELECTION)
         )
 
+        self.insertion_sort_button = tk.Button(
+            self.border_frame,
+            text="Insertion Sort",
+            bg='gray25',
+            fg='white',
+            font=(
+                "Helvetica",
+                30
+            ),
+
+            command=lambda: self.controller.show_form(SortEnum.INSERTION)
+        )
+
         self.border_frame.grid(row=0, column=0)
         self.bubble_sort_button.grid(row=0, column=0)
         self.selection_sort_button.grid(row=0, column=1)
+        self.insertion_sort_button.grid(row=0, column=2)
         self.border_frame.update()
 
     def destroy_view(self):
