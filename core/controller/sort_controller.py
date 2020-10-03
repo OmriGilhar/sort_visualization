@@ -2,6 +2,7 @@ import tkinter as tk
 
 from core.model.bubble_sort import BubbleSort
 from core.model.insertion_sort import InsertionSort
+from core.model.quick_sort import QuickSort
 from core.model.selection_sort import SelectionSort
 from core.utils.list_prepration import create_list
 from core.view.realtime_sort_view import RealtimeSortView
@@ -76,9 +77,9 @@ class SortController:
         self.current_view = RealtimeSortView(self.root, self)
 
         if sort_type == SortEnum.BUBBLE:
-            b_sort = BubbleSort()
+            bubble_sort = BubbleSort()
             bubble_sort_list = orig_randomized_list.copy()
-            b_sort.sort(bubble_sort_list, self.current_view)
+            bubble_sort.sort(bubble_sort_list, self.current_view)
 
         elif sort_type == SortEnum.SELECTION:
             selection_sort = SelectionSort()
@@ -89,5 +90,15 @@ class SortController:
             insertion_sort = InsertionSort()
             insertion_sort_list = orig_randomized_list.copy()
             insertion_sort.sort(insertion_sort_list, self.current_view)
+
+        elif sort_type == SortEnum.QUICK:
+            quick_sort = QuickSort()
+            quick_sort_list = orig_randomized_list.copy()
+            quick_sort.sort(
+                quick_sort_list,
+                self.current_view,
+                0,
+                len(quick_sort_list) - 1
+            )
 
         self.current_view.back_button.config(state="normal")
