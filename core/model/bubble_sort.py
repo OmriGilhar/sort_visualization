@@ -5,7 +5,7 @@ from core.view.realtime_sort_view import RealtimeSortView
 class BubbleSort(SortInterface):
     def __init__(self):
         self.name = "Bubble Sort"
-        self.complexity = "Ο(n^2), Best: Ο(n)"
+        self.complexity = "Worst: Ο(n^2), Best: Ο(n)"
         self.iter_num = 0
         self.index = 0
 
@@ -35,7 +35,7 @@ class BubbleSort(SortInterface):
         return list_to_sort
 
     def update_view(self, sort_view: RealtimeSortView,
-                    list_to_sort: list, current_index: int):
+                    list_to_sort: list, current_index: int, check_index=None):
         x_axis = list(range(1, len(list_to_sort) + 1))
         sort_view.update_new_graph(x_axis, list_to_sort, current_index,
                                    current_index+1, self.name,

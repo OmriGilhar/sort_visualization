@@ -5,12 +5,10 @@ from core.view.realtime_sort_view import RealtimeSortView
 class SelectionSort(SortInterface):
     def __init__(self):
         self.name = "Selection Sort"
-        self.complexity = "Ο(n^2), Best: Ο(n^2)"
+        self.complexity = "Worst: Ο(n^2), Best: Ο(n^2)"
         self.iter_num = 0
         self.min_j = None
         self.index = 0
-
-
 
     def sort(self, list_to_sort: list, sort_view: RealtimeSortView):
         for i in range(len(list_to_sort)):

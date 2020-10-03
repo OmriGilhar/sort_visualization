@@ -4,8 +4,8 @@ from core.view.realtime_sort_view import RealtimeSortView
 
 class QuickSort(SortInterface):
     def __init__(self):
-        self.name = "Insertion Sort"
-        self.complexity = "Ο(n^2), Best: Ο(n)"
+        self.name = "Quick Sort"
+        self.complexity = "Worst: Ο(n^2), Best: Ο(n * log(n))"
         self.iter_num = 0
 
     def sort(self, list_to_sort: list, sort_view: RealtimeSortView, *args):

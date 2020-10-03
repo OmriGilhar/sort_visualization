@@ -16,6 +16,7 @@ class RealtimeSortView:
                                    bg="black", relief=tk.SUNKEN, padx=25,
                                    pady=25)
         self.controller = controller
+        self.iteration_text = tk.StringVar(value=str(0))
 
         self.back_button = tk.Button(
             self.main_frame,
@@ -30,12 +31,23 @@ class RealtimeSortView:
 
             command=lambda: self.controller.show_sort_options()
         )
+        self.iteration_label = tk.Label(
+            self.main_frame,
+            text="Iterations: {0}".format(self.iteration_text.get()),
+            bg='black',
+            fg='white',
+            font=(
+                "Helvetica",
+                30
+            )
+        )
 
         self.f = None
         self.ax = None
         self.bar_plot = None
         self.canvas = None
         self.width = 0
+        self.iteration_label.pack()
         self.back_button.pack()
         self.main_frame.pack()
 
@@ -45,6 +57,9 @@ class RealtimeSortView:
     def update_new_graph(self, x_axis: list, list_to_sort: list,
                          current_index: int, follow_index: int, plot_name: str,
                          plot_complexity: str, iteration_num: int):
+        self.iteration_label.configure(text="Iterations: {0}".format(str(
+            iteration_num)))
+        self.iteration_text.set(str(iteration_num))
         if not self.f and not self.ax:
             self.f = Figure(figsize=(17, 12), dpi=100)
             self.ax = self.f.add_subplot(111)
